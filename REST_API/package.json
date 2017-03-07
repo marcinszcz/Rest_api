@@ -1,0 +1,22 @@
+{
+  "name": "rest_app",
+  "version": "1.0.0",
+  "description": "Rest app for our classes",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2"
+  },
+  "author": "mszczygi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcinszcz/Rest_api/issues"
+  },
+  "homepage": "https://github.com/marcinszcz/Rest_api#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
