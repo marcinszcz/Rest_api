@@ -1,6 +1,6 @@
 const express = require('express')
-var bodyParser = require('body-parser')
-var r = require('rethinkdb')
+const bodyParser = require('body-parser')
+const r = require('rethinkdb')
 var config = require('/home/mr/Studia/VI/II/REST_API/config.js')
 var app = express()
 
@@ -16,12 +16,9 @@ r.connect(config.rethinkdb, function(err, conn) {
     console.log('Could not open a connection to initialize the database')
     console.log(err.message)
     process.exit(1)
-  }
+  } })
+  var promise = r.connect({db: 'myDb'});
 
-  r.table('new1').run(conn).finally(function() {
-    return r.tableCreate('new1').run(conn)
-  })
-})
 
 
 
