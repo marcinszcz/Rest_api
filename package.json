@@ -4,10 +4,10 @@
   "description": "Rest app for our classes",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "db-setup": "node db-setup.js"
   },
   "dependencies": {
-    "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "recli": "~0.2.4"
   },
