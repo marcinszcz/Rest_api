@@ -11,13 +11,13 @@ r.connect({ db: 'bookshop' }).then((connection) => {
 
   app.get('/books/search', (req, res) => {
     const search = req.query.search
-    console.log(req)
+    // console.log(req)
     r.db('bookshop').table('books')
-    .filter(r.row('title').match(search + '.*'))
-    .run(connection).then((cursor) => {
-      cursor.toArray()
-        .then((books) => res.json(books))
-    })
+      .filter(r.row('title').match(search + '.*'))
+      .run(connection).then((cursor) => {
+        cursor.toArray()
+          .then((books) => res.json(books))
+      })
   })
 
   app.get('/books', (req, res) => {
@@ -29,6 +29,7 @@ r.connect({ db: 'bookshop' }).then((connection) => {
 
   app.get('/books/:id', (req, res) => {
     const id = req.params.id
+    //  console.log(req)
     r.db('bookshop').table('books').get(id).run(connection).then((book) => {
       res.json(book)
     })
@@ -36,15 +37,17 @@ r.connect({ db: 'bookshop' }).then((connection) => {
 
   app.post('/books', (req, res) => {
     const title = req.query.title
-    r.db('bookshop').table('books').insert({ title: title }).run(connection).then((response) => {
-      res.json(response)
-    })
+    console.log(req)
+    r.db('bookshop').table('books').insert({ title: title }).run(connection)
+      .then((response) => {
+        res.json(response)
+      })
   })
 
   app.put('/books/:id', (req, res) => {
     const id = req.params.id
     const title = req.query.title
-    // console.log(req)
+    console.log(req)
     r.db('bookshop').table('books').get(id).replace({ id: id, title: title }).run(connection)
       .then((response) => {
         res.send(response)
@@ -53,7 +56,42 @@ r.connect({ db: 'bookshop' }).then((connection) => {
 
   app.delete('/books/:id', (req, res) => {
     const id = req.params.id
+    console.log(req)
     r.db('bookshop').table('books').get(id).delete().run(connection)
+      .then((response) => {
+        res.send(response)
+      })
+  })
+
+  app.get('/authors', (req, res) => {
+    r.db('bookshop').table('authors').run(connection).then((cursor) => {
+      cursor.toArray().then((authors) => {
+        res.json(authors)
+      })
+    })
+  })
+
+  app.get('/authors/:id', (req, res) => {
+    const id = req.params.id
+    r.db('bookshop').table('authors').get(id).run(connection)
+      .then((author) => {
+        res.json(author)
+      })
+  })
+
+  app.put('/authors/:id', (req, res) => {
+    const id = req.params.id
+    const name = req.query.name
+    r.db('bookshop').table('authors').get(id).replace({ id: id, name: name }).run(connection)
+      .then((response) => {
+        res.send(response)
+      })
+  })
+
+  app.delete('/authors/:id', (req, res) => {
+    const id = req.params.id
+    console.log(req)
+    r.db('bookshop').table('authors').get(id).delete().run(connection)
       .then((response) => {
         res.send(response)
       })
