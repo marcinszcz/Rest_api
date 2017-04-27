@@ -97,6 +97,14 @@ r.connect({ db: 'bookshop' }).then((connection) => {
       })
   })
 
+  app.get('/booksA', (req, res) => {
+    r.table('books').eqJoin('author_id', r.table('authors'))
+    .zip().run(connection).then((cursor) => {
+     //  console.log(cursor)
+      cursor.toArray().then((books) => res.json(books))
+    })
+  })
+
   app.listen(config.express.port)
   console.log('Server running on port ' + config.express.port)
 })
